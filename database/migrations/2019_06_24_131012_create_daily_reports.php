@@ -20,8 +20,6 @@ class CreateDailyReports extends Migration
             $table->string('title');
             $table->text('content');
             $table->softDeletes();
-
-
         });
     }
 

@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\DailyReport;
+use App\Http\Requests\User\DailyReportRequest;
+use Auth; 
 
 class Daily_ReportsController extends Controller
 {
@@ -11,9 +15,20 @@ class Daily_ReportsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+
+    public $daily_report;
+
+    public function __construct(DailyReport $dailyreport)
     {
-        return view('user.daily_report.index');
+        $this->middleware('auth');
+        $this->daily_report = $dailyreport;
+    }
+
+    public function index(Request $request)
+    { 
+        $daily_reports = $this->daily_report->all();
+        
+        return view('user.daily_report.index',compact('daily_reports'));
     }
 
     /**
@@ -23,7 +38,7 @@ class Daily_ReportsController extends Controller
      */
     public function create()
     {
-        //
+        return view('user.daily_report.create');
     }
 
     /**
@@ -34,7 +49,10 @@ class Daily_ReportsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+        $input['user_id'] = Auth::id();
+        $this->daily_report->fill($input)->save();
+        return redirect()->to('daily_report');
     }
 
     /**
@@ -45,7 +63,7 @@ class Daily_ReportsController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('user.daily_report.show');
     }
 
     /**
@@ -56,7 +74,8 @@ class Daily_ReportsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $daily_report = $this->daily_report->find($id);
+        return view('daily_report.edit'.compact('daily_report'));
     }
 
     /**
@@ -68,7 +87,9 @@ class Daily_ReportsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $input = $request->all();
+        $this->daily_report->find($id)>fill($input)->save();
+        return redirect()->to('daily_report');
     }
 
     /**
@@ -79,6 +100,7 @@ class Daily_ReportsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->daily_report->find($id)->delete();
+        return redirect()->to('daily_report');
     }
 }

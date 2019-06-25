@@ -4,6 +4,7 @@
 <h2 class="brand-header">日報作成</h2>
 <div class="main-wrap">
   <div class="container">
+  {!! Form::open(['route' => 'daily_report.store']) !!}
       <input class="form-control" name="user_id" type="hidden">
       <div class="form-group form-size-small">
     <input class="form-control" name="reporting_time" type="date">
@@ -18,6 +19,7 @@
       <span class="help-block"></span>
     </div>
     <button type="submit" class="btn btn-success pull-right">Add</button>
+    {!! Form::close() !!}
   </div>
 </div>
 
