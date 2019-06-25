@@ -91,3 +91,4 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.' ,'namespace' => 'Admin'], fu
 
 });
 
+Route::resource('daily_report','Daily_ReportsController');
