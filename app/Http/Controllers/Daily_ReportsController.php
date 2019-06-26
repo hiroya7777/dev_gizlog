@@ -18,16 +18,15 @@ class Daily_ReportsController extends Controller
 
     public $daily_report;
 
-    public function __construct(DailyReport $dailyreport)
+    public function __construct(DailyReport $daily_report)
     {
         $this->middleware('auth');
-        $this->daily_report = $dailyreport;
+        $this->daily_report = $daily_report;
     }
 
     public function index(Request $request)
     { 
         $daily_reports = $this->daily_report->all();
-        
         return view('user.daily_report.index',compact('daily_reports'));
     }
 
@@ -63,7 +62,8 @@ class Daily_ReportsController extends Controller
      */
     public function show($id)
     {
-        return view('user.daily_report.show');
+        $daily_report = $this->daily_report->find($id);
+        return view('user.daily_report.show',compact('daily_report'));
     }
 
     /**
@@ -75,7 +75,8 @@ class Daily_ReportsController extends Controller
     public function edit($id)
     {
         $daily_report = $this->daily_report->find($id);
-        return view('daily_report.edit'.compact('daily_report'));
+       
+        return view('user.daily_report.edit',compact('daily_report'));
     }
 
     /**
@@ -88,7 +89,7 @@ class Daily_ReportsController extends Controller
     public function update(Request $request, $id)
     {
         $input = $request->all();
-        $this->daily_report->find($id)>fill($input)->save();
+        $this->daily_report->find($id)->fill($input)->save();
         return redirect()->to('daily_report');
     }
 
