@@ -3,6 +3,8 @@
 namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;  // 追加
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class DailyReportRequest extends FormRequest
 {
@@ -23,12 +25,12 @@ class DailyReportRequest extends FormRequest
      */
     public function rules()
     {
-        //
+       
     }
   
     public function messages()
     {
-        //
+       
     }
 }
 
