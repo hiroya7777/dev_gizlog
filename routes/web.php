@@ -91,7 +91,5 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.' ,'namespace' => 'Admin'], fu
     Route::get('/register/', 'Auth\AdminRegisterController@showAdminRegistrationForm');
 
 });
-Route::group(['middleware' => ['web']], function () {
     Route::resource('daily_report','Daily_ReportsController');
-    Route::get('daily_report/search','Daily_ReportsController@search');
-});
+ 

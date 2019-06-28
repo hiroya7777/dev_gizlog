@@ -18,4 +18,14 @@ class DailyReport extends Model
         'deleted_at',
         'reporting_time',
     ];
+    public function searchReport($dates)
+    {  
+        return $this->when($dates,function($query,$dates)
+        {
+                return $query->where('reporting_time', 'LIKE', "%$dates%");
+            })
+                ->orderBy('created_at','desc')->get();
+
+    }
 }
+

@@ -18,7 +18,6 @@
             <th class="table-column">Content</th>
             <td class='td-text'>{{ $daily_report->contents}}</td>
           </tr>
-          
         </tbody>
       </table>
     </div>

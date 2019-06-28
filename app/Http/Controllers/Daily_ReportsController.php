@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Models\DailyReport;
 use App\Http\Requests\User\DailyReportRequest;
 use Auth; 
-use DB;
 
 class Daily_ReportsController extends Controller
 {
@@ -26,9 +25,9 @@ class Daily_ReportsController extends Controller
     }
 
     public function index(Request $request)
-    { 
-        $daily_reports = $this->daily_report->all();
-        $daily_reports = DailyReport::latest()->get();
+    {
+        $dates = $request->input('search-month');
+        $daily_reports = $this->daily_report->searchReport($dates);
         return view('user.daily_report.index',compact('daily_reports'));
     }
 
@@ -48,16 +47,8 @@ class Daily_ReportsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DailyReportRequest $request)
     {
-        $request->validate([
-            'title' => 'required',
-            'contents' =>'required',
-        ],
-        [
-            'title.required' => '入力必須の項目です。',
-            'contents.required' => '入力必須の項目です。', 
-        ]);
         $input = $request->all();
         $input['user_id'] = Auth::id();
         $this->daily_report->fill($input)->save();
@@ -85,7 +76,6 @@ class Daily_ReportsController extends Controller
     public function edit($id)
     {
         $daily_report = $this->daily_report->find($id);
-       
         return view('user.daily_report.edit',compact('daily_report'));
     }
 
@@ -113,14 +103,5 @@ class Daily_ReportsController extends Controller
     {
         $this->daily_report->find($id)->delete();
         return redirect()->to('daily_report');
-    }
-
-    public function search()
-    {
-        if(!empty($dates)){
-            $daily_report->where('reporting_time','like','%'.$daily_report.'%');
-        }
-        $dates = $daily_report->get();
-        return view('user.daily_report.index',compact('dates','daily_report'));
     }
 }
