@@ -5,7 +5,7 @@
 <div class="main-wrap">
   <div class="container">
     {!! Form::open(['ro
-    ute' => 'question.confirm', 'method' => 'post']) !!}
+ute' => 'question.confirm', 'method' => 'post']) !!}
       <div class="form-group {{ $errors->has('tag_category_id')? 'has-error' : '' }}">
         <select name='tag_category_id' class = "form-control selectpicker form-size-small" id ="pref_id">
           <option value="">Select category</option>

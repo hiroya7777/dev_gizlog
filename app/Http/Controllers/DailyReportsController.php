@@ -8,7 +8,7 @@ use App\Models\DailyReport;
 use App\Http\Requests\User\DailyReportRequest;
 use Auth; 
 
-class Daily_ReportsController extends Controller
+class DailyReportsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,19 +16,19 @@ class Daily_ReportsController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public $daily_report;
+    public $report;
 
-    public function __construct(DailyReport $daily_report)
+    public function __construct(DailyReport $report)
     {
         $this->middleware('auth');
-        $this->daily_report = $daily_report;
+        $this->report = $report;
     }
 
     public function index(Request $request)
     {
         $dates = $request->input('search-month');
-        $daily_reports = $this->daily_report->searchReport($dates);
-        return view('user.daily_report.index',compact('daily_reports'));
+        $reports = $this->report->searchReport($dates);
+        return view('user.report.index',compact('reports'));
     }
 
     /**
@@ -38,7 +38,7 @@ class Daily_ReportsController extends Controller
      */
     public function create()
     {
-        return view('user.daily_report.create');
+        return view('user.report.create');
     }
 
     /**
@@ -51,8 +51,8 @@ class Daily_ReportsController extends Controller
     {
         $input = $request->all();
         $input['user_id'] = Auth::id();
-        $this->daily_report->fill($input)->save();
-        return redirect()->to('daily_report');
+        $this->report->fill($input)->save();
+        return redirect()->to('report');
     }
 
     /**
@@ -63,8 +63,8 @@ class Daily_ReportsController extends Controller
      */
     public function show($id)
     {
-        $daily_report = $this->daily_report->find($id);
-        return view('user.daily_report.show',compact('daily_report'));
+        $report = $this->report->find($id);
+        return view('user.report.show',compact('report'));
     }
 
     /**
@@ -75,8 +75,8 @@ class Daily_ReportsController extends Controller
      */
     public function edit($id)
     {
-        $daily_report = $this->daily_report->find($id);
-        return view('user.daily_report.edit',compact('daily_report'));
+        $report = $this->report->find($id);
+        return view('user.report.edit',compact('report'));
     }
 
     /**
@@ -89,8 +89,8 @@ class Daily_ReportsController extends Controller
     public function update(Request $request, $id)
     {
         $input = $request->all();
-        $this->daily_report->find($id)->fill($input)->save();
-        return redirect()->to('daily_report');
+        $this->report->find($id)->fill($input)->save();
+        return redirect()->to('report');
     }
 
     /**
@@ -101,7 +101,7 @@ class Daily_ReportsController extends Controller
      */
     public function destroy($id)
     {
-        $this->daily_report->find($id)->delete();
-        return redirect()->to('daily_report');
+        $this->report->find($id)->delete();
+        return redirect()->to('report');
     }
 }
