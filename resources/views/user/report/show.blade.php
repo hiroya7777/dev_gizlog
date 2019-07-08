@@ -16,7 +16,7 @@
           </tr>
           <tr>
             <th class="table-column">Content</th>
-            <td class='td-text'>{{ $report->contents }}</td>
+            <td class='td-text'>{{ $report->content }}</td>
           </tr>
         </tbody>
       </table>
@@ -24,11 +24,11 @@
   </div>
   <div class="btn-bottom-wrapper">
     <a class="btn btn-edit" href="{{ route('report.edit', $report->id) }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-    <div class="btn-delete">
-      {!! Form::open(['route' => ['report.destroy', $report->id], 'method' => 'DELETE']) !!}
-        <button class="btn btn-danger" type="submit"><i class="fa fa-trash-o"></i></button>
-      {!! Form::close() !!}
-    </div>
+      <div class="btn-delete">
+        {!! Form::open(['route' => ['report.destroy', $report->id], 'method' => 'DELETE']) !!}
+          <button class="btn btn-danger" type="submit"><i class="fa fa-trash-o"></i></button>
+        {!! Form::close() !!}
+      </div>
   </div>
 </div>
 

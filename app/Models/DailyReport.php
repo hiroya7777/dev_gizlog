@@ -12,7 +12,7 @@ class DailyReport extends Model
     protected $fillable = [
         'user_id',
         'title',
-        'contents',
+        'content',
         'reporting_time',
     ];
 
@@ -23,12 +23,12 @@ class DailyReport extends Model
         'reporting_time',
     ];
 
-    public function searchReport($dates)
+    public function inputsearchReport($searchdates)
     {
-        return $this->when($dates,function($query,$dates)
+        return $this->when($searchdates, function($query, $searchdates)
         {
-                return $query->where('reporting_time', 'LIKE', "%$dates%");
-        })->orderBy('created_at','desc')->get();
+            return $query->where('reporting_time', 'LIKE', "%$searchdates%");
+        })->orderBy('created_at', 'desc')->get();
     }
 }
 

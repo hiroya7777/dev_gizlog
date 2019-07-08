@@ -5,12 +5,12 @@
 <div class="main-wrap">
   <div class="btn-wrapper daily-report">
     {!! Form::open(['route' => 'report.index', 'method' => 'get']) !!}
-      {!! Form::input('month', 'search-month', null, ['class' => 'form-control']) !!} 
+      {!! Form::input('month', 'search-month', null, ['class' => 'form-control']) !!}
       <button type="submit" class="btn btn-icon"><i class="fa fa-search"></i></button>
     {!! Form::close() !!}
     <a class="btn btn-icon" href="{{ route('report.create') }}"><i class="fa fa-plus"></i></a>
   </div>
-  <div class="content-wrapper table-responsive">
+  <div class="contents-wrapper table-responsive">
     <table class="table table-striped">
       <thead>
         <tr class="row">
@@ -25,8 +25,8 @@
           <tr class="row">
             <td class="col-xs-2">{{ $report->reporting_time->format('m/d (D)') }}</td>
             <td class="col-xs-3">{{ $report->title }}</td>
-            <td class="col-xs-5">{{ $report->contents }}</td>
-            <td class="col-xs-2"><a class="btn" href="{{ route('report.show',$report->id) }}"><i class="fa fa-book"></i></a></td>
+            <td class="col-xs-5">{{ $report->content }}</td>
+            <td class="col-xs-2"><a class="btn" href="{{ route('report.show', $report->id) }}"><i class="fa fa-book"></i></a></td>
           </tr>
           @endforeach
       </tbody>

@@ -10,12 +10,6 @@ use Auth;
 
 class DailyReportsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
     public $report;
 
     public function __construct(DailyReport $report)
@@ -24,10 +18,15 @@ class DailyReportsController extends Controller
         $this->report = $report;
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index(Request $request)
     {
-        $dates = $request->input('search-month');
-        $reports = $this->report->searchReport($dates);
+        $searchdates = $request->input('search-month');
+        $reports = $this->report->inputsearchReport($searchdates);
         return view('user.report.index', compact('reports'));
     }
 
@@ -47,6 +46,7 @@ class DailyReportsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(DailyReportRequest $request)
     {
         $input = $request->all();
