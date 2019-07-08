@@ -3,7 +3,7 @@
 namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Contracts\Validation\Validator;  
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
 class DailyReportRequest extends FormRequest
@@ -17,7 +17,7 @@ class DailyReportRequest extends FormRequest
     {
       return true;
     }
-  
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -30,12 +30,12 @@ class DailyReportRequest extends FormRequest
             'contents' =>'required',
         ];
     }
-  
+
     public function messages()
     {
         return [
             'title.required' => '入力必須の項目です。',
-            'contents.required' => '入力必須の項目です。', 
+            'contents.required' => '入力必須の項目です。',
         ];
     }
 }

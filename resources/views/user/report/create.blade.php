@@ -5,9 +5,9 @@
 <div class="main-wrap">
   <div class="container">
     {!! Form::open(['route' => 'report.store']) !!}
-      <input class="form-control" name="user_id" type="hidden">
+      {!! Form::input('hidden', 'user_id', null, ['class' => 'form-control']) !!}
       <div class="form-group form-size-small">
-        <input class="form-control" name="reporting_time" type="date">
+        {!! Form::input('date', 'reporting_time', null, ['class' => 'form-control']) !!}
           <span class="help-block"></span>
       </div>
       <div class="form-group @if(!empty($errors->first('title'))) has-error @endif">
@@ -18,7 +18,7 @@
         {!! Form::textarea('contents',null,['class' => 'form-control', 'placeholder' => 'Content'] ) !!}
           <span class="help-block">{{ $errors->first('contents') }}</span>
       </div>
-      <button type="submit" class="btn btn-success pull-right">Add</button>
+        {!! Form::submit('Add', ['class' => 'btn btn-success pull-right']) !!}
     {!! Form::close() !!}
   </div>
 </div>

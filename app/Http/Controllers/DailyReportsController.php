@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\DailyReport;
 use App\Http\Requests\User\DailyReportRequest;
-use Auth; 
+use Auth;
 
 class DailyReportsController extends Controller
 {
@@ -28,7 +28,7 @@ class DailyReportsController extends Controller
     {
         $dates = $request->input('search-month');
         $reports = $this->report->searchReport($dates);
-        return view('user.report.index',compact('reports'));
+        return view('user.report.index', compact('reports'));
     }
 
     /**
@@ -52,7 +52,7 @@ class DailyReportsController extends Controller
         $input = $request->all();
         $input['user_id'] = Auth::id();
         $this->report->fill($input)->save();
-        return redirect()->to('report');
+        return redirect()->route('report.index');;;
     }
 
     /**
@@ -64,7 +64,7 @@ class DailyReportsController extends Controller
     public function show($id)
     {
         $report = $this->report->find($id);
-        return view('user.report.show',compact('report'));
+        return view('user.report.show', compact('report'));
     }
 
     /**
@@ -76,7 +76,7 @@ class DailyReportsController extends Controller
     public function edit($id)
     {
         $report = $this->report->find($id);
-        return view('user.report.edit',compact('report'));
+        return view('user.report.edit', compact('report'));
     }
 
     /**
@@ -90,7 +90,7 @@ class DailyReportsController extends Controller
     {
         $input = $request->all();
         $this->report->find($id)->fill($input)->save();
-        return redirect()->to('report');
+        return redirect()->route('report.index');
     }
 
     /**
@@ -102,6 +102,6 @@ class DailyReportsController extends Controller
     public function destroy($id)
     {
         $this->report->find($id)->delete();
-        return redirect()->to('report');
+        return redirect()->route('report.index');
     }
 }

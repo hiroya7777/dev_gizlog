@@ -10,14 +10,14 @@
     <div class="table-responsive">
       <table class="table table-striped table-bordered">
         <tbody>
-          <tr> 
+          <tr>
             <th class="table-column">Title</th>
             <td class="td-text">{{ $report->title }}</td>
           </tr>
           <tr>
             <th class="table-column">Content</th>
-            <td class='td-text'>{{ $report->contents}}</td>
-          </
+            <td class='td-text'>{{ $report->contents }}</td>
+          </tr>
         </tbody>
       </table>
     </div>
