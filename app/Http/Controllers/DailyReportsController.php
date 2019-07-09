@@ -10,7 +10,7 @@ use Auth;
 
 class DailyReportsController extends Controller
 {
-    public $report;
+    private $report;
 
     public function __construct(DailyReport $report)
     {
@@ -52,7 +52,7 @@ class DailyReportsController extends Controller
         $input = $request->all();
         $input['user_id'] = Auth::id();
         $this->report->fill($input)->save();
-        return redirect()->route('report.index');;;
+        return redirect()->route('report.index');
     }
 
     /**
