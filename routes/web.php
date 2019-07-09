@@ -65,7 +65,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.' ,'namespace' => 'Admin'], fu
     Route::post('attendance/{id}/user', ['as' => 'attendance.user.store', 'uses' => 'AttendanceController@store']);
     Route::put('attendance/{id}/user', ['as' => 'attendance.user.update', 'uses' => 'AttendanceController@update']);
 
-
     Route::get('question', function () {
         abort(404);
     });
@@ -89,7 +88,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.' ,'namespace' => 'Admin'], fu
 
     Route::post('/register', ['as' => 'register', 'uses' => 'Auth\AdminRegisterController@adminRegister']);
     Route::get('/register/', 'Auth\AdminRegisterController@showAdminRegistrationForm');
-
-});
+    });
     Route::resource('report', 'DailyReportsController');
 
