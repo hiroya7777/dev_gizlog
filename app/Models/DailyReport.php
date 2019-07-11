@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+
 class DailyReport extends Model
 {
     use SoftDeletes;
@@ -23,12 +24,14 @@ class DailyReport extends Model
         'reporting_time',
     ];
 
-    public function inputsearchReport($searchdates)
+    public function searchSpecificmonth($searchdate)
     {
-        return $this->when($searchdates, function($query, $searchdates)
+        return $this->when($searchdate, function($query, $searchdate)
         {
-            return $query->where('reporting_time', 'LIKE', "%$searchdates%");
-        })->orderBy('created_at', 'desc')->get();
+            return $query->where('reporting_time', 'LIKE', '%'.$searchdate.'%');
+        })
+        ->orderBy('reporting_time', 'desc')
+        ->get();
     }
 }
 
