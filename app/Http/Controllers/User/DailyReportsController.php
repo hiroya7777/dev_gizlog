@@ -25,8 +25,8 @@ class DailyReportsController extends Controller
      */
     public function index(Request $request)
     {
-        $searchdate = $request->input('search-month');
-        $reports = $this->report->searchSpecificmonth($searchdate);
+        $searchmonth = $request->input('search-month');
+        $reports = $this->report->searchSpecificmonth($searchmonth);
         return view('user.report.index', compact('reports'));
     }
 

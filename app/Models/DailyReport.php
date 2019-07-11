@@ -24,11 +24,11 @@ class DailyReport extends Model
         'reporting_time',
     ];
 
-    public function searchSpecificmonth($searchdate)
+    public function searchSpecificmonth($searchmonth)
     {
-        return $this->when($searchdate, function($query, $searchdate)
+        return $this->when($searchmonth, function($query, $searchmonth)
         {
-            return $query->where('reporting_time', 'LIKE', '%'.$searchdate.'%');
+            return $query->where('reporting_time', 'LIKE', '%'.$searchmonth.'%');
         })
         ->orderBy('reporting_time', 'desc')
         ->get();
