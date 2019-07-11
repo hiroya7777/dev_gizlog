@@ -18,7 +18,7 @@
           {!! Form::textarea('content', null, ['class' => 'form-control', 'placeholder' => 'Content']) !!}
           <span class="help-block">{{ $errors->first('content') }}</span>
         </div>
-          {!! Form::submit('Add', ['class' => 'btn btn-success pull-right']) !!}
+      {!! Form::submit('Add', ['class' => 'btn btn-success pull-right']) !!}
     {!! Form::close() !!}
   </div>
 </div>
