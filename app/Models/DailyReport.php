@@ -24,13 +24,12 @@ class DailyReport extends Model
     ];
 
     public function searchSpecificmonth($searchmonth)
-    {dd($searchmonth);
-        return $this->when($searchmonth, function($query, $searchmonth)
-        {
-            return $query->whereYear('reporting_time', date('Y'))->whereMonth('reporting_time', date('m'));
-        })
-        ->orderBy('created_at', 'desc')
-        ->get();
+    {
+        $seachArray = explode('-', $searchmonth);
+        return $this->whereYear('reporting_time', '=', $seachArray[0])
+            ->whereMonth('reporting_time', '=', $seachArray[1])
+            ->orderBy('created_at', 'desc')
+            ->get();
     }
 }
 
