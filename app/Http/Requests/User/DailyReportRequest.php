@@ -15,7 +15,7 @@ class DailyReportRequest extends FormRequest
      */
     public function authorize()
     {
-      return true;
+        return true;
     }
 
     /**
@@ -28,6 +28,7 @@ class DailyReportRequest extends FormRequest
         return [
             'title' => 'required|max:30',
             'content' => 'required|max:1000',
+            'reporting_time' => 'required|unique:daily_reports,reporting_time',
         ];
     }
 
@@ -36,6 +37,8 @@ class DailyReportRequest extends FormRequest
         return [
             'title.required' => '入力必須の項目です。',
             'content.required' => '入力必須の項目です。',
+            'reporting_time.required' => '入力必須の項目です。',
+            'reporting_time.unique' => 'その日付の日報はすでに存在しています。'
         ];
     }
 }
