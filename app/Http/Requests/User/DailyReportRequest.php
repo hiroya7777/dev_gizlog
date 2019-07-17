@@ -5,6 +5,7 @@ namespace App\Http\Requests\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Validation\Rule;
 
 class DailyReportRequest extends FormRequest
 {
@@ -28,7 +29,12 @@ class DailyReportRequest extends FormRequest
         return [
             'title' => 'required|max:30',
             'content' => 'required|max:1000',
-            'reporting_time' => 'required|unique:daily_reports,reporting_time',
+            'reporting_time' => [
+                'required',
+                Rule::unique('daily_reports')->where(function ($query) {
+                return $query->where('user_id',$this->user()->id);
+            }),
+            ]
         ];
     }
 
