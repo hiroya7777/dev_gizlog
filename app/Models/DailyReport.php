@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Carbon\Carbon;
 
 class DailyReport extends Model
 {
@@ -25,9 +26,11 @@ class DailyReport extends Model
 
     public function searchSpecificmonth($searchmonth)
     {
-        $seachArray = explode('-', $searchmonth);
-        return $this->whereYear('reporting_time', '=', $seachArray[0])
-            ->whereMonth('reporting_time', '=', $seachArray[1])
+        $carbon = Carbon::parse($searchmonth);
+        $year = $carbon->year;
+        $month = $carbon->month;
+        return $this->whereYear('reporting_time', '=', $year )
+            ->whereMonth('reporting_time', '=', $month )
             ->orderBy('created_at', 'desc')
             ->get();
     }
