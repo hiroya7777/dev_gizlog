@@ -26,7 +26,11 @@ class DailyReportsController extends Controller
     public function index(Request $request)
     {
         $searchmonth = $request->input('search-month');
-        $reports = $this->report->searchSpecificmonth($searchmonth);
+        if(empty($searchmonth)){
+            $reports = $this->report->where('user_id', Auth::id())->orderBy('created_at', 'desc')->get();
+        } else {
+            $reports = $this->report->specificMonth($searchmonth);
+        }
         return view('user.report.index', compact('reports'));
     }
 
@@ -88,6 +92,7 @@ class DailyReportsController extends Controller
     public function update(DailyReportRequest $request, $id)
     {
         $input = $request->all();
+        $input['user_id'] = Auth::id();
         $this->report->find($id)->fill($input)->save();
         return redirect()->route('report.index');
     }
