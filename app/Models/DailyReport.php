@@ -27,8 +27,8 @@ class DailyReport extends Model
         $carbon = Carbon::parse($searchmonth);
         $year = $carbon->year;
         $month = $carbon->month;
-        return $this->whereYear('reporting_time', '=', $year)
-            ->whereMonth('reporting_time', '=',  sprintf('%02d', $month))
+        return $this->whereYear('reporting_time', $year)
+            ->whereMonth('reporting_time', $month)
             ->where('user_id', Auth::id())
             ->orderBy('created_at', 'desc')
             ->get();
