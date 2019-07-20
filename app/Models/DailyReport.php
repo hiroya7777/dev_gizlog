@@ -22,9 +22,9 @@ class DailyReport extends Model
         'reporting_time',
     ];
 
-    public function specificMonth($searchmonth)
+    public function specificMonth($searchMonth)
     {
-        $carbon = Carbon::parse($searchmonth);
+        $carbon = Carbon::parse($searchMonth);
         $year = $carbon->year;
         $month = $carbon->month;
         return $this->whereYear('reporting_time', $year)
