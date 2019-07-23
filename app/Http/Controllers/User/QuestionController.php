@@ -1,19 +1,31 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\Question;
+use App\Http\Requests\User\QuestionRequest;
+use Auth;
 
 class QuestionController extends Controller
 {
+    protected $question;
+
+    public function __construct(Question $question)
+    {
+        $this->middleware('auth');
+        $this->question = $question;
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $inputs = $request->all();
+        return view('user.question.index', compact('questions', 'inputs'));
     }
 
     /**
@@ -23,7 +35,7 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        //
+        return view('user.question.create');
     }
 
     /**
@@ -34,7 +46,11 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $inputs = $request->all();
+        $inputs['user_id'] = Auth::id();
+        // dd($inputs);
+        $this->question->create($inputs);
+        return redirect()->route('question.index');
     }
 
     /**
@@ -68,7 +84,10 @@ class QuestionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $input = $request->all();
+        $inputs['user_id'] = Auth::id();
+        $this->question->find($id)->fill($input)->save();
+        return redirect()->route('question.index');
     }
 
     /**
