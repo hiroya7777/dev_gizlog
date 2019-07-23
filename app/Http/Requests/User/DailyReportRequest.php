@@ -15,7 +15,7 @@ class DailyReportRequest extends FormRequest
     {
       return true;
     }
-  
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -29,7 +29,7 @@ class DailyReportRequest extends FormRequest
             'contents'       => 'required|max:250',
         ];
     }
-  
+
     public function messages()
     {
         return [
