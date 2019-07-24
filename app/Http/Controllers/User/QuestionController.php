@@ -5,18 +5,21 @@ namespace App\Http\Controllers\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Question;
-use App\Http\Requests\User\QuestionRequest;
+use App\Models\TagCategory;
+use App\Http\Requests\User\QuestionsRequest;
 use Auth;
 
 class QuestionController extends Controller
 {
     protected $question;
 
-    public function __construct(Question $question)
+    public function __construct(Question $question, TagCategory $category)
     {
         $this->middleware('auth');
         $this->question = $question;
+        $this->category = $category;
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -24,8 +27,9 @@ class QuestionController extends Controller
      */
     public function index(Request $request)
     {
-        $inputs = $request->all();
-        return view('user.question.index', compact('questions', 'inputs'));
+        $categories = $this->category->all();
+        $questions = $this->question->all();
+        return view('user.question.index', compact('questions','categories'));
     }
 
     /**
@@ -48,7 +52,6 @@ class QuestionController extends Controller
     {
         $inputs = $request->all();
         $inputs['user_id'] = Auth::id();
-        // dd($inputs);
         $this->question->create($inputs);
         return redirect()->route('question.index');
     }
@@ -99,5 +102,13 @@ class QuestionController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function confirm(Request $request)
+    {
+        $question = $request->all();
+        $question['user_id'] = Auth::id();
+        $category = $this->category->find($question['tag_category_id'])->name;
+        return view('user.question.confirm', compact('question','category'));
     }
 }

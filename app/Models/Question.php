@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\TagCategory;
 
 class Question extends Model
 {
@@ -12,5 +13,10 @@ class Question extends Model
         'content',
         'tag_category_id',
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(TagCategory::class, 'tag_category_id');
+    }
 }
 

@@ -4,20 +4,20 @@
 <h2 class="brand-header">質問投稿</h2>
 <div class="main-wrap">
   <div class="container">
-    {!! Form::open(['route' => 'question.store']) !!}
+    {!! Form::open(['route' => 'question.confirm']) !!}
       <div class="form-group">
-        {{ Form::select('tag_category_id', ['' => 'Select category', '1' => 'front', '2' => 'back', '3' => 'infra', '4' => 'others'], null, ['class' => 'form-control selectpicker form-size-small', 'id' => 'pref_id']) }}
+        {!! Form::select('tag_category_id', ['' => 'Select category', '1' => 'front', '2' => 'back', '3' => 'infra', '4' => 'others'], null, ['class' => 'form-control selectpicker form-size-small', 'tag_category_id' => 'name']) !!}
         <span class="help-block"></span>
       </div>
       <div class="form-group">
-        <input class="form-control" placeholder="title" name="title" type="text">
+        {!! Form::input('text', 'title', null, ['class' => 'form-control', 'placeholder' => 'title']) !!}
         <span class="help-block"></span>
       </div>
       <div class="form-group">
-        <textarea class="form-control" placeholder="Please write down your question here..." name="content" cols="50" rows="10"></textarea>
+        {!! Form::textarea('content', null, ['class' => 'form-control', 'placeholder' => 'Please write down your question here...']) !!}
         <span class="help-block"></span>
       </div>
-      <input name="confirm" class="btn btn-success pull-right" type="submit" value="create">
+      {!! Form::submit('create', ['class' => 'btn btn-success pull-right']) !!}
     {!! Form::close() !!}
   </div>
 </div>
