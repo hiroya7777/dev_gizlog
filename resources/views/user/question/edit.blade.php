@@ -5,24 +5,26 @@
 
 <div class="main-wrap">
   <div class="container">
-    <form>
+  {!!  Form::open(['route' => ['question.update', $question->id], 'method' => 'PUT']) !!}
       <div class="form-group">
         <select name='tag_category_id' class = "form-control selectpicker form-size-small" id ="pref_id">
-          <option value=""></option>
-            <option value= ""></option>
+          <option value="{{ $question->tag_category_id }}">{{ $question->category->name }}</option>
+          @foreach($allcategories as $allcategory )
+            <option value= "{{$allcategory->id}}" >{{ $allcategory->name }}</option>
+          @endforeach
         </select>
         <span class="help-block"></span>
       </div>
       <div class="form-group">
-        <input class="form-control" placeholder="title" name="title" type="text" value="">
+        {!! Form::input('text', 'title', $question->title, ['class' => 'form-control']) !!}
         <span class="help-block"></span>
       </div>
       <div class="form-group">
-        <textarea class="form-control" placeholder="Please write down your question here..." name="content" cols="50" rows="10"></textarea>
+        {!! form::textarea('content', $question->content, ['class' => 'form-control', 'placeholder' => 'Please write down your question here...']) !!}
         <span class="help-block"></span>
       </div>
       <input name="confirm" class="btn btn-success pull-right" type="submit" value="update">
-    </form>
+    {!! Form::close() !!}
   </div>
 </div>
 

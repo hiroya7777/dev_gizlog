@@ -77,7 +77,9 @@ class QuestionController extends Controller
     public function edit($id)
     {
         $question = $this->question->find($id);
-        return view('user.question.edit', compact('question'));
+        $categories = $this->category->where('id', '=', 'tag_category_id')->get();
+        $allcategories = $this->category->all();
+        return view('user.question.edit', compact('question', 'categories','allcategories'));
     }
 
     /**
@@ -92,7 +94,7 @@ class QuestionController extends Controller
         $input = $request->all();
         $inputs['user_id'] = Auth::id();
         $this->question->find($id)->fill($input)->save();
-        return redirect()->route('question.index');
+        return redirect()->route('question.confirm');
     }
 
     /**
