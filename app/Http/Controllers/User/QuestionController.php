@@ -28,9 +28,24 @@ class QuestionController extends Controller
      */
     public function index(Request $request)
     {
-        $categories = $this->category->all();
-        $questions = $this->question->all();
-        return view('user.question.index', compact('questions','categories'));
+        $inputs = $request->all();
+        $questions =$this->question->all();
+        $categorieis = $this->category->all();
+
+        if(empty($inputs['search_word']) && empty($inputs['tag_category_id'])) {
+            $inputs = $request->all();
+        } elseif(array_key_exists('tag_category_id', $inputs) && empty($inputs['search_word'])) {
+            $questions = $this->question->specificId($inputs)->get();
+        } elseif(array_key_exists('search_word', $inputs) && empty($inputs['tag_category_id'])) {
+            $questions = $this->question->specificWord($inputs)->get();
+        } elseif(array_key_exists('search_word', $inputs) && array_key_exists($inputs['tag_category_id'])) {
+            $questions = $this->specificWord($inputs)->specificId($inputs)->get();
+        } else {
+            $question = $this->where('title', 'like', '%'.$inputs['search_word'].'%')
+                             ->where('tag_category_id', '=', $inputs['tag_category_id'])
+                             ->get();
+        }
+        return view('user.question.index', compact('questions','categories','inputs'));
     }
 
     /**
