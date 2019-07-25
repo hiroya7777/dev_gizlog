@@ -103,7 +103,8 @@ class QuestionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->question->find($id)->delete();
+        return redirect()->route('question.mypage');
     }
 
     public function confirm(Request $request)
