@@ -77,7 +77,7 @@ class QuestionController extends Controller
     public function edit($id)
     {
         $question = $this->question->find($id);
-        $categories = $this->category->where('id', '=', 'tag_category_id')->get();
+        $categories = $this->category->where('id', '=', 'tag_category_id')->orderBy('created_at', 'desc')->get();
         $allcategories = $this->category->all();
         return view('user.question.edit', compact('question', 'categories','allcategories'));
     }
@@ -119,7 +119,7 @@ class QuestionController extends Controller
 
     public function mypage()
     {
-        $questions = $this->question->where('user_id', Auth::id())->get();
+        $questions = $this->question->where('user_id', Auth::id())->orderBy('created_at', 'desc')->get();
         $category = $this->category->where('id', '=', 'tag_category_id')->get();
         return view('user.question.mypage', compact('questions', 'category'));
     }
