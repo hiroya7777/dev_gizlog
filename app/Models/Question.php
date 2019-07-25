@@ -19,6 +19,11 @@ class Question extends Model
         return $this->belongsTo(TagCategory::class, 'tag_category_id');
     }
 
+    public function comment()
+    {
+        return $this->hasMany(Comment::class, 'question_id');
+    }
+
     public function specificWord($inputs)
     {
         if(!empty($inputs['search_word'])) {
