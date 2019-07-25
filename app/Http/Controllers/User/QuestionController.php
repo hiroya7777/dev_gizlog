@@ -11,7 +11,8 @@ use Auth;
 
 class QuestionController extends Controller
 {
-    protected $question;
+    private $question;
+    private $category;
 
     public function __construct(Question $question, TagCategory $category)
     {
@@ -75,7 +76,8 @@ class QuestionController extends Controller
      */
     public function edit($id)
     {
-        //
+        $question = $this->question->find($id);
+        return view('user.question.edit', compact('question'));
     }
 
     /**
@@ -109,6 +111,13 @@ class QuestionController extends Controller
         $question = $request->all();
         $question['user_id'] = Auth::id();
         $category = $this->category->find($question['tag_category_id'])->name;
-        return view('user.question.confirm', compact('question','category'));
+        return view('user.question.confirm', compact('question', 'category'));
+    }
+
+    public function mypage()
+    {
+        $questions = $this->question->where('user_id', Auth::id())->get();
+        $category = $this->category->where('id', '=', 'tag_category_id')->get();
+        return view('user.question.mypage', compact('questions', 'category'));
     }
 }
