@@ -3,7 +3,8 @@
 
 <h2 class="brand-header">質問一覧</h2>
 <div class="main-wrap">
-  <form>
+  <form id="form" >
+  {!! Form::open(['route' => 'question.index', 'method' => 'GET', 'id' => 'form']) !!}
     <div class="btn-wrapper">
       <div class="search-box">
         <input class="form-control search-form" placeholder="Search words..." name="search_word" type="text">
@@ -16,10 +17,13 @@
     </div>
     <div class="category-wrap">
       <div class="btn all" id="0">all</div>
-      <div class="btn" id=""></div>
+      <div class="btn front" id="1">FRONT</div>
+      <div class="btn back" id="2">BACK</div>
+      <div class="btn infra" id="3">INFRA</div>
+      <div class="btn others" id="4">OTHERS</div>
       <input id="category-val" name="tag_category_id" type="hidden" value="">
     </div>
-  </form>
+  {!! Form::close() !!}
   <div class="content-wrapper table-responsive">
     <table class="table table-striped">
       <thead>
@@ -37,7 +41,7 @@
           <td class="col-xs-1"><img src="{{ Auth::user()->avatar }}" class="avatar-img"></td>
           <td class="col-xs-2">{{ $question->category->name }}</td>
           <td class="col-xs-6">{{ $question['title'] }}</td>
-          <td class="col-xs-1">{{ $question['content'] }}<span class="point-color"></span></td>
+          <td class="col-xs-1"><span class="point-color"></span></td>
           <td class="col-xs-2">
             <a class="btn btn-success" href="">
               <i class="fa fa-comments-o" aria-hidden="true"></i>
