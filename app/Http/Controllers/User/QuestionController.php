@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Question;
 use App\Models\TagCategory;
 use App\Http\Requests\User\QuestionsRequest;
+use App\Models\Comment;
 use Auth;
 
 class QuestionController extends Controller
@@ -80,8 +81,9 @@ class QuestionController extends Controller
      */
     public function show($id)
     {
+
         $question = $this->question->find($id);
-        return view('user.question.show',compact('question'));
+        return view('user.question.show',compact('question', 'inputs'));
     }
 
     /**

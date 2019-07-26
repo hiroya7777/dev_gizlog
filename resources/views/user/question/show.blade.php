@@ -25,19 +25,23 @@
     </div>
   </div>
     <div class="comment-list">
+    @foreach ($question->comment as $comment)
         <div class="comment-wrap">
           <div class="comment-title">
             <img src="{{ Auth::user()->avatar }}" class="avatar-img">
             <p>{{ Auth::user()->name }}</p>
-            <p class="comment-date">{{ $question['created_at'] }}</p>
+            <p class="comment-date">{{ $comment->created_at->format('Y-m-d H:i') }}</p>
           </div>
-          <div class="comment-body"></div>
+          <div class="comment-body">
+            {!! nl2br(e($comment->comment)) !!}
+          </div>
         </div>
+      @endforeach
     </div>
   <div class="comment-box">
-    <form>
-      <input name="user_id" type="hidden" value="">
-      <input name="question_id" type="hidden" value="">
+    {!! Form::open(['route' => 'question.comment', 'method' => 'POST']) !!}
+      <input name="user_id" type="hidden" value="{{ Auth::id() }}">
+      <input name="question_id" type="hidden" value="{{ $question->id }}">
       <div class="comment-title">
         <img src="{{ Auth::user()->avatar }}" class="avatar-img"><p>コメントを投稿する</p>
       </div>
@@ -46,11 +50,11 @@
         <span class="help-block"></span>
       </div>
       <div class="comment-bottom">
-        <button type="submit" class="btn btn-success" href="{{ route('question.store') }}">
+        <button type="submit" class="btn btn-success">
           <i class="fa fa-pencil" aria-hidden="true"></i>
         </button>
       </div>
-    </form>
+    {!! Form::close() !!}
   </div>
 </div>
 @endsection
