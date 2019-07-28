@@ -70,6 +70,7 @@ class QuestionController extends Controller
         $inputs = $request->all();
         $inputs['user_id'] = Auth::id();
         $this->question->create($inputs);
+        dd($inputs);
         return redirect()->route('question.mypage');
     }
 
@@ -127,7 +128,7 @@ class QuestionController extends Controller
         return redirect()->route('question.mypage');
     }
 
-    public function confirm(Request $request)
+    public function confirm(QuestionsRequest $request)
     {
         $question = $request->all();
         $question['user_id'] = Auth::id();
