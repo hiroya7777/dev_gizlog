@@ -26,17 +26,17 @@
   </div>
     <div class="comment-list">
     @foreach ($question->comment as $comment)
-        <div class="comment-wrap">
-          <div class="comment-title">
-            <img src="{{ Auth::user()->avatar }}" class="avatar-img">
-            <p>{{ Auth::user()->name }}</p>
-            <p class="comment-date">{{ $comment->created_at->format('Y-m-d H:i') }}</p>
-          </div>
-          <div class="comment-body">
-            {!! nl2br(e($comment->comment)) !!}
-          </div>
+      <div class="comment-wrap">
+        <div class="comment-title">
+          <img src="{{ Auth::user()->avatar }}" class="avatar-img">
+          <p>{{ Auth::user()->name }}</p>
+          <p class="comment-date">{{ $comment->created_at->format('Y-m-d H:i') }}</p>
         </div>
-      @endforeach
+        <div class="comment-body">
+          {!! nl2br(e($comment->comment)) !!}
+        </div>
+      </div>
+    @endforeach
     </div>
   <div class="comment-box">
     {!! Form::open(['route' => 'question.comment', 'method' => 'POST']) !!}
@@ -45,9 +45,9 @@
       <div class="comment-title">
         <img src="{{ Auth::user()->avatar }}" class="avatar-img"><p>コメントを投稿する</p>
       </div>
-      <div class="comment-body">
+      <div class="comment-body @if(!empty($errors->first('comment'))) has-error @endif)">
         <textarea class="form-control" placeholder="Add your comment..." name="comment" cols="50" rows="10"></textarea>
-        <span class="help-block"></span>
+        <span class="help-block">{{ $errors->first('comment') }}</span>
       </div>
       <div class="comment-bottom">
         <button type="submit" class="btn btn-success">

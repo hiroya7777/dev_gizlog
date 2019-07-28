@@ -4,7 +4,6 @@
 <h2 class="brand-header">質問一覧</h2>
 <div class="main-wrap">
   <form id="form" >
-  <!-- {!! Form::open(['route' => 'question.index', 'method' => 'GET', 'id' => 'form']) !!} -->
   <form method="GET" action="question.index" >
     <div class="btn-wrapper">
       <div class="search-box">
@@ -24,7 +23,6 @@
       <div class="btn others" id="4">OTHERS</div>
       <input id="category-val" name="tag_category_id" type="hidden" value="">
     </div>
-  <!-- {!! Form::close() !!} -->
 </form>
   <div class="content-wrapper table-responsive">
     <table class="table table-striped">
