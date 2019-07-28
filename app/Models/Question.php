@@ -24,23 +24,18 @@ class Question extends Model
         return $this->hasMany(Comment::class);
     }
 
-    public function specificWord($inputs)
+    public function searchWord($inputs)
     {
         if(!empty($inputs['search_word'])) {
             return $this->where('title', 'like', '%'.$inputs['search_word'].'%');
         }
     }
 
-    public function specificId($inputs)
+    public function searchCategory($inputs)
     {
         if(!empty($inputs['tag_category_id'])) {
             return $this->where('tag_category_id', '=', $inputs['tag_category_id']);
         }
-    }
-
-    public function categoryAddWord($inputs)
-    {
-            return $this->specificWord($inputs)->specificId($inputs)->get();
     }
 }
 

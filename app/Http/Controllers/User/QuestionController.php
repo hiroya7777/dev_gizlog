@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Question;
 use App\Models\TagCategory;
-use App\Http\Requests\User\QuestionsRequest;
 use App\Models\Comment;
+use App\Http\Requests\User\QuestionsRequest;
 use Auth;
 
 class QuestionController extends Controller
@@ -36,11 +36,11 @@ class QuestionController extends Controller
         if(empty($inputs['search_word']) && empty($inputs['tag_category_id'])) {
             $inputs = $request->all();
         } elseif(array_key_exists('tag_category_id', $inputs) && empty($inputs['search_word'])) {
-            $questions = $this->question->specificId($inputs)->get();
+            $questions = $this->question->searchCategory($inputs)->get();
         } elseif(array_key_exists('search_word', $inputs) && empty($inputs['tag_category_id'])) {
-            $questions = $this->question->specificWord($inputs)->get();
+            $questions = $this->question->searchWord($inputs)->get();
         } elseif(array_key_exists('search_word', $inputs) && array_key_exists($inputs['tag_category_id'])) {
-            $questions = $this->specificWord($inputs)->specificId($inputs)->get();
+            $questions = $this->searchWord($inputs)->searchCategory($inputs)->get();
         } else {
             $question = $this->where('title', 'like', '%'.$inputs['search_word'].'%')
                              ->where('tag_category_id', '=', $inputs['tag_category_id'])
@@ -65,7 +65,7 @@ class QuestionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(QuestionsRequest $request)
     {
         $inputs = $request->all();
         $inputs['user_id'] = Auth::id();
@@ -107,7 +107,7 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(QuestionsRequest $request, $id)
     {
         $input = $request->all();
         $input['user_id'] = Auth::id();
