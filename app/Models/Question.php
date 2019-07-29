@@ -4,9 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\TagCategory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Question extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = [
         'user_id' ,
         'title',
@@ -33,7 +36,7 @@ class Question extends Model
 
     public function searchCategory($inputs)
     {
-        if(!empty($inputs['tag_category_id'])) {
+        if (!empty($inputs['tag_category_id'])) {
             return $this->where('tag_category_id', '=', $inputs['tag_category_id']);
         }
     }
