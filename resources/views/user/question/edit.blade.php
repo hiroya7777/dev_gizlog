@@ -8,9 +8,8 @@
   {!! Form::open(['route' => 'question.confirm']) !!}
     <div class="form-group @if(!empty($errors->first('tag_category_id'))) has-error @endif">
       <select name='tag_category_id' class = "form-control selectpicker form-size-small" id ="pref_id">
-        <option value="{{ $question->tag_category_id }}">{{ $question->category->name }}</option>
-      @foreach($allcategories as $allcategory)
-        <option value= "{{$allcategory->id}}" >{{ $allcategory->name }}</option>
+      @foreach($allCategories as $allCategory)
+        <option value="{{ $allCategory->id }}" {{ $allCategory->id === $question->tag_category_id ? 'selected' : '' }}>{{ $allCategory->name }}</option>
       @endforeach
       </select>
       <span class="help-block">{{ $errors->first('tag_category_id') }}</span>

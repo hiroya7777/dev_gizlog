@@ -97,8 +97,8 @@ class QuestionController extends Controller
     {
         $question = $this->question->find($id);
         $categories = $this->category->where('id', '=', 'tag_category_id')->orderBy('created_at', 'desc')->get();
-        $allcategories = $this->category->all();
-        return view('user.question.edit', compact('question', 'categories','allcategories'));
+        $allCategories = $this->category->all();
+        return view('user.question.edit', compact('question', 'categories','allCategories'));
     }
 
     /**
