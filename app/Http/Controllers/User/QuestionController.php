@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Question;
 use App\Models\TagCategory;
-use App\Models\Comment;
 use App\Http\Requests\User\QuestionsRequest;
 use Auth;
 
@@ -56,7 +55,8 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        return view('user.question.create');
+        $categories = $this->category->all();
+        return view('user.question.create', compact('categories'));
     }
 
     /**
@@ -70,7 +70,6 @@ class QuestionController extends Controller
         $inputs = $request->all();
         $inputs['user_id'] = Auth::id();
         $this->question->create($inputs);
-        dd($inputs);
         return redirect()->route('question.mypage');
     }
 
