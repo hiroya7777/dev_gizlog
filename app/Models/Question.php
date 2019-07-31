@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\TagCategory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Services\SearchingScope;
 
 class Question extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes,SearchingScope;
 
     protected $fillable = [
         'user_id' ,
@@ -27,18 +28,11 @@ class Question extends Model
         return $this->hasMany(Comment::class);
     }
 
-    public function searchWord($inputs)
+    public function searchQuestion($value)
     {
-        if(!empty($inputs['search_word'])) {
-            return $this->where('title', 'like', '%'.$inputs['search_word'].'%');
-        }
-    }
-
-    public function searchCategory($inputs)
-    {
-        if (!empty($inputs['tag_category_id'])) {
-            return $this->where('tag_category_id', '=', $inputs['tag_category_id']);
-        }
+        return $this->filterLike('title', $value['search_word'])
+                    ->filterEqual('tag_category_id', $value['tag_category_id'])
+                    ->orderby('created_at', 'desc');
     }
 }
 
