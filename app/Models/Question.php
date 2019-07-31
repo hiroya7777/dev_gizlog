@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\TagCategory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Services\SearchingScope;
+use Auth;
 
 class Question extends Model
 {
@@ -33,6 +34,13 @@ class Question extends Model
         return $this->filterLike('title', $value['search_word'])
                     ->filterEqual('tag_category_id', $value['tag_category_id'])
                     ->orderby('created_at', 'desc');
+    }
+
+    public function  showMypage()
+    {
+        return $this->where('user_id', Auth::id())
+                    ->orderBy('created_at', 'desc')
+                    ->get();
     }
 }
 

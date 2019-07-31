@@ -30,20 +30,12 @@ class QuestionController extends Controller
     {
         $inputs = $request->all();
         $questions =$this->question->all();
-        $categorieis = $this->category->all();
+        $categories = $this->category->all();
 
-        if(empty($inputs['search_word']) && empty($inputs['tag_category_id'])) {
-            $inputs = $request->all();
-        } elseif(array_key_exists('tag_category_id', $inputs) && empty($inputs['search_word'])) {
-            $questions = $this->question->searchCategory($inputs)->get();
-        } elseif(array_key_exists('search_word', $inputs) && empty($inputs['tag_category_id'])) {
-            $questions = $this->question->searchWord($inputs)->get();
-        } elseif(array_key_exists('search_word', $inputs) && array_key_exists($inputs['tag_category_id'])) {
-            $questions = $this->searchWord($inputs)->searchCategory($inputs)->get();
+        if(array_key_exists('search_word', $inputs)) {
+            $questions = $this->question->searchQuestion($inputs)->get();
         } else {
-            $question = $this->where('title', 'like', '%'.$inputs['search_word'].'%')
-                             ->where('tag_category_id', '=', $inputs['tag_category_id'])
-                             ->get();
+            $questions = $this->question->orderBy('created_at','desc')->get();
         }
         return view('user.question.index', compact('questions','categories','inputs'));
     }
@@ -95,7 +87,10 @@ class QuestionController extends Controller
     public function edit($id)
     {
         $question = $this->question->find($id);
-        $categories = $this->category->where('id', '=', 'tag_category_id')->orderBy('created_at', 'desc')->get();
+        $categories = $this->category
+                     ->where('id', '=', 'tag_category_id')
+                     ->orderBy('created_at', 'desc')
+                     ->get();
         $allCategories = $this->category->all();
         return view('user.question.edit', compact('question', 'categories','allCategories'));
     }
@@ -137,8 +132,7 @@ class QuestionController extends Controller
 
     public function mypage()
     {
-        $questions = $this->question->where('user_id', Auth::id())->orderBy('created_at', 'desc')->get();
-        $category = $this->category->where('id', '=', 'tag_category_id')->get();
-        return view('user.question.mypage', compact('questions', 'category'));
+        $questions = $this->question->showMypage();
+        return view('user.question.mypage', compact('questions'));
     }
 }
