@@ -16,14 +16,13 @@
       </a>
     </div>
     <div class="category-wrap">
-      <div class="btn all" id="0">all</div>
-      <div class="btn front" id="1">FRONT</div>
-      <div class="btn back" id="2">BACK</div>
-      <div class="btn infra" id="3">INFRA</div>
-      <div class="btn others" id="4">OTHERS</div>
+      <div class="btn all" id="">all</div>
+      @foreach($categories as $category)
+      <div class="btn {{ $category->name }}" id="{{ $category->id }}">{{ $category->name }}</div>
+      @endforeach
       <input id="category-val" name="tag_category_id" type="hidden" value="">
     </div>
-</form>
+  </form>
   <div class="content-wrapper table-responsive">
     <table class="table table-striped">
       <thead>
