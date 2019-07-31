@@ -41,10 +41,11 @@ Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
     Route::get('attendance/mypage', ['as' => 'attendance.mypage', 'uses' => 'AttendanceController@showMypage']);
 
     Route::resource('report', DailyReportController::class);
+    
     Route::get('question/mypage', ['as' => 'question.mypage', 'uses' => 'QuestionController@mypage']);
-    Route::post('question/comment', ['as' => 'question.comment', 'uses' => 'CommentsController@store']);
-    Route::resource('question', QuestionController::class);
+    Route::post('question/comment', ['as' => 'question.comment', 'uses' => 'CommentController@store']);
     Route::post('question/confirm', ['as' => 'question.confirm', 'uses' => 'QuestionController@confirm']);
+    Route::resource('question', QuestionController::class);
 
 });
 
