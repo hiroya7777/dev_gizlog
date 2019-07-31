@@ -33,9 +33,9 @@ class QuestionController extends Controller
         $categories = $this->category->all();
 
         if(array_key_exists('search_word', $inputs)) {
-            $questions = $this->question->searchQuestion($inputs)->get();
+            $questions = $this->question->searchQuestion($inputs)->paginate(10);
         } else {
-            $questions = $this->question->orderBy('created_at','desc')->get();
+            $questions = $this->question->orderBy('created_at','desc')->paginate(10);
         }
         return view('user.question.index', compact('questions','categories','inputs'));
     }
